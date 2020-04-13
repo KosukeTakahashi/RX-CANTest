@@ -1,0 +1,1 @@
+-O0 -ffunction-sections -fdata-sections -g2 -Wstack-usage=100 -mcpu=rx600 -misa=v1 -mbig-endian-data -I"C:/Users/Kosuke/Develop/RX/CANTest2/generate" -Wa,-adlnh="vects.lst" -MMD -MP -MF"generate/vects.d" -MT"generate/vects.o" "../generate/vects.c" -c -o "generate/vects.o"

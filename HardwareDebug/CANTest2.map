@@ -1,0 +1,580 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x00000000         0x00004000
+ROM              0xfffc0000         0x00040000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./src/CANTest2.o
+LOAD ./generate/hwinit.o
+LOAD ./generate/inthandler.o
+LOAD ./generate/start.o
+LOAD ./generate/vects.o
+START GROUP
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/../../../../rx-elf/lib/big-endian-data\libm.a
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/../../../../rx-elf/lib/big-endian-data\libc.a
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/big-endian-data\libgcc.a
+END GROUP
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/big-endian-data\libgcc.a
+START GROUP
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/../../../../rx-elf/lib/big-endian-data\libc.a
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/../../../../rx-elf/lib/big-endian-data\libnosys.a
+END GROUP
+LOAD c:/renesas/gcc for renesas rx 4.8.4.201803-gnurx-elf/rx-elf/rx-elf/bin/../lib/gcc/rx-elf/4.8.4.201803-GNURX/big-endian-data\libgcc.a
+
+.fvectors       0xffffff80       0x80
+ *(.fvectors)
+ .fvectors      0xffffff80       0x80 ./generate/vects.o
+                0xffffff80                _HardwareVectors
+
+.text           0xfffc0000      0xb18
+ *(.text)
+ .text          0xfffc0000       0x7a ./generate/start.o
+                0xfffc0000                _PowerON_Reset
+ *(.text.*)
+ *fill*         0xfffc007a        0x6 
+ .text.can0_switch_mode
+                0xfffc0080      0x158 ./src/CANTest2.o
+                0xfffc0080                _can0_switch_mode
+ .text.can0_wakeup
+                0xfffc01d8       0x4e ./src/CANTest2.o
+                0xfffc01d8                _can0_wakeup
+ .text.can0_sleep
+                0xfffc0226       0x5f ./src/CANTest2.o
+                0xfffc0226                _can0_sleep
+ *fill*         0xfffc0285        0x3 
+ .text.can0_set_bitrate
+                0xfffc0288      0x120 ./src/CANTest2.o
+                0xfffc0288                _can0_set_bitrate
+ .text.can0_load_mailbox
+                0xfffc03a8      0x180 ./src/CANTest2.o
+                0xfffc03a8                _can0_load_mailbox
+ .text.can0_transmit_mailbox
+                0xfffc0528       0x48 ./src/CANTest2.o
+                0xfffc0528                _can0_transmit_mailbox
+ .text.main     0xfffc0570      0x1f6 ./src/CANTest2.o
+                0xfffc0570                _main
+ .text.HardwareSetup
+                0xfffc0766        0x7 ./generate/hwinit.o
+                0xfffc0766                _HardwareSetup
+ .text.INT_Excep_SuperVisorInst
+                0xfffc076d        0x8 ./generate/inthandler.o
+                0xfffc076d                _INT_Excep_SuperVisorInst
+ .text.INT_Excep_AccessInst
+                0xfffc0775        0x8 ./generate/inthandler.o
+                0xfffc0775                _INT_Excep_AccessInst
+ .text.INT_Excep_UndefinedInst
+                0xfffc077d        0x8 ./generate/inthandler.o
+                0xfffc077d                _INT_Excep_UndefinedInst
+ .text.INT_Excep_FloatingPoint
+                0xfffc0785        0x8 ./generate/inthandler.o
+                0xfffc0785                _INT_Excep_FloatingPoint
+ .text.INT_NonMaskableInterrupt
+                0xfffc078d        0x8 ./generate/inthandler.o
+                0xfffc078d                _INT_NonMaskableInterrupt
+ .text.INT_Dummy
+                0xfffc0795        0x8 ./generate/inthandler.o
+                0xfffc0795                _INT_Dummy
+ .text.INT_Excep_BRK
+                0xfffc079d        0x8 ./generate/inthandler.o
+                0xfffc079d                _INT_Excep_BRK
+ .text.INT_Excep_BSC_BUSERR
+                0xfffc07a5        0x8 ./generate/inthandler.o
+                0xfffc07a5                _INT_Excep_BSC_BUSERR
+ .text.INT_Excep_FCUIF_FIFERR
+                0xfffc07ad        0x8 ./generate/inthandler.o
+                0xfffc07ad                _INT_Excep_FCUIF_FIFERR
+ .text.INT_Excep_FCUIF_FRDYI
+                0xfffc07b5        0x8 ./generate/inthandler.o
+                0xfffc07b5                _INT_Excep_FCUIF_FRDYI
+ .text.INT_Excep_ICU_SWINT
+                0xfffc07bd        0x8 ./generate/inthandler.o
+                0xfffc07bd                _INT_Excep_ICU_SWINT
+ .text.INT_Excep_CMT0_CMI0
+                0xfffc07c5        0x8 ./generate/inthandler.o
+                0xfffc07c5                _INT_Excep_CMT0_CMI0
+ .text.INT_Excep_CMT1_CMI1
+                0xfffc07cd        0x8 ./generate/inthandler.o
+                0xfffc07cd                _INT_Excep_CMT1_CMI1
+ .text.INT_Excep_CMT2_CMI2
+                0xfffc07d5        0x8 ./generate/inthandler.o
+                0xfffc07d5                _INT_Excep_CMT2_CMI2
+ .text.INT_Excep_CMT3_CMI3
+                0xfffc07dd        0x8 ./generate/inthandler.o
+                0xfffc07dd                _INT_Excep_CMT3_CMI3
+ .text.INT_Excep_RSPI0_SPEI0
+                0xfffc07e5        0x8 ./generate/inthandler.o
+                0xfffc07e5                _INT_Excep_RSPI0_SPEI0
+ .text.INT_Excep_RSPI0_SPRI0
+                0xfffc07ed        0x8 ./generate/inthandler.o
+                0xfffc07ed                _INT_Excep_RSPI0_SPRI0
+ .text.INT_Excep_RSPI0_SPTI0
+                0xfffc07f5        0x8 ./generate/inthandler.o
+                0xfffc07f5                _INT_Excep_RSPI0_SPTI0
+ .text.INT_Excep_RSPI0_SPII0
+                0xfffc07fd        0x8 ./generate/inthandler.o
+                0xfffc07fd                _INT_Excep_RSPI0_SPII0
+ .text.INT_Excep_CAN0_ERS0
+                0xfffc0805        0x8 ./generate/inthandler.o
+                0xfffc0805                _INT_Excep_CAN0_ERS0
+ .text.INT_Excep_CAN0_RXF0
+                0xfffc080d        0x8 ./generate/inthandler.o
+                0xfffc080d                _INT_Excep_CAN0_RXF0
+ .text.INT_Excep_CAN0_TXF0
+                0xfffc0815        0x8 ./generate/inthandler.o
+                0xfffc0815                _INT_Excep_CAN0_TXF0
+ .text.INT_Excep_CAN0_RXM0
+                0xfffc081d        0x8 ./generate/inthandler.o
+                0xfffc081d                _INT_Excep_CAN0_RXM0
+ .text.INT_Excep_CAN0_TXM0
+                0xfffc0825        0x8 ./generate/inthandler.o
+                0xfffc0825                _INT_Excep_CAN0_TXM0
+ .text.INT_Excep_ICU_IRQ0
+                0xfffc082d        0x8 ./generate/inthandler.o
+                0xfffc082d                _INT_Excep_ICU_IRQ0
+ .text.INT_Excep_ICU_IRQ1
+                0xfffc0835        0x8 ./generate/inthandler.o
+                0xfffc0835                _INT_Excep_ICU_IRQ1
+ .text.INT_Excep_ICU_IRQ2
+                0xfffc083d        0x8 ./generate/inthandler.o
+                0xfffc083d                _INT_Excep_ICU_IRQ2
+ .text.INT_Excep_ICU_IRQ3
+                0xfffc0845        0x8 ./generate/inthandler.o
+                0xfffc0845                _INT_Excep_ICU_IRQ3
+ .text.INT_Excep_ICU_IRQ4
+                0xfffc084d        0x8 ./generate/inthandler.o
+                0xfffc084d                _INT_Excep_ICU_IRQ4
+ .text.INT_Excep_ICU_IRQ5
+                0xfffc0855        0x8 ./generate/inthandler.o
+                0xfffc0855                _INT_Excep_ICU_IRQ5
+ .text.INT_Excep_ICU_IRQ6
+                0xfffc085d        0x8 ./generate/inthandler.o
+                0xfffc085d                _INT_Excep_ICU_IRQ6
+ .text.INT_Excep_ICU_IRQ7
+                0xfffc0865        0x8 ./generate/inthandler.o
+                0xfffc0865                _INT_Excep_ICU_IRQ7
+ .text.INT_Excep_WDT_WOVI
+                0xfffc086d        0x8 ./generate/inthandler.o
+                0xfffc086d                _INT_Excep_WDT_WOVI
+ .text.INT_Excep_AD0_ADI0
+                0xfffc0875        0x8 ./generate/inthandler.o
+                0xfffc0875                _INT_Excep_AD0_ADI0
+ .text.INT_Excep_S12AD0_S12ADI0
+                0xfffc087d        0x8 ./generate/inthandler.o
+                0xfffc087d                _INT_Excep_S12AD0_S12ADI0
+ .text.INT_Excep_S12AD1_S12ADI1
+                0xfffc0885        0x8 ./generate/inthandler.o
+                0xfffc0885                _INT_Excep_S12AD1_S12ADI1
+ .text.INT_Excep_CMPB_CMPI
+                0xfffc088d        0x8 ./generate/inthandler.o
+                0xfffc088d                _INT_Excep_CMPB_CMPI
+ .text.INT_Excep_MTU0_TGIA0
+                0xfffc0895        0x8 ./generate/inthandler.o
+                0xfffc0895                _INT_Excep_MTU0_TGIA0
+ .text.INT_Excep_MTU0_TGIB0
+                0xfffc089d        0x8 ./generate/inthandler.o
+                0xfffc089d                _INT_Excep_MTU0_TGIB0
+ .text.INT_Excep_MTU0_TGIC0
+                0xfffc08a5        0x8 ./generate/inthandler.o
+                0xfffc08a5                _INT_Excep_MTU0_TGIC0
+ .text.INT_Excep_MTU0_TGID0
+                0xfffc08ad        0x8 ./generate/inthandler.o
+                0xfffc08ad                _INT_Excep_MTU0_TGID0
+ .text.INT_Excep_MTU0_TCIV0
+                0xfffc08b5        0x8 ./generate/inthandler.o
+                0xfffc08b5                _INT_Excep_MTU0_TCIV0
+ .text.INT_Excep_MTU0_TGIE0
+                0xfffc08bd        0x8 ./generate/inthandler.o
+                0xfffc08bd                _INT_Excep_MTU0_TGIE0
+ .text.INT_Excep_MTU0_TGIF0
+                0xfffc08c5        0x8 ./generate/inthandler.o
+                0xfffc08c5                _INT_Excep_MTU0_TGIF0
+ .text.INT_Excep_MTU1_TGIA1
+                0xfffc08cd        0x8 ./generate/inthandler.o
+                0xfffc08cd                _INT_Excep_MTU1_TGIA1
+ .text.INT_Excep_MTU1_TGIB1
+                0xfffc08d5        0x8 ./generate/inthandler.o
+                0xfffc08d5                _INT_Excep_MTU1_TGIB1
+ .text.INT_Excep_MTU1_TCIV1
+                0xfffc08dd        0x8 ./generate/inthandler.o
+                0xfffc08dd                _INT_Excep_MTU1_TCIV1
+ .text.INT_Excep_MTU1_TCIU1
+                0xfffc08e5        0x8 ./generate/inthandler.o
+                0xfffc08e5                _INT_Excep_MTU1_TCIU1
+ .text.INT_Excep_MTU2_TGIA2
+                0xfffc08ed        0x8 ./generate/inthandler.o
+                0xfffc08ed                _INT_Excep_MTU2_TGIA2
+ .text.INT_Excep_MTU2_TGIB2
+                0xfffc08f5        0x8 ./generate/inthandler.o
+                0xfffc08f5                _INT_Excep_MTU2_TGIB2
+ .text.INT_Excep_MTU2_TCIV2
+                0xfffc08fd        0x8 ./generate/inthandler.o
+                0xfffc08fd                _INT_Excep_MTU2_TCIV2
+ .text.INT_Excep_MTU2_TCIU2
+                0xfffc0905        0x8 ./generate/inthandler.o
+                0xfffc0905                _INT_Excep_MTU2_TCIU2
+ .text.INT_Excep_MTU3_TGIA3
+                0xfffc090d        0x8 ./generate/inthandler.o
+                0xfffc090d                _INT_Excep_MTU3_TGIA3
+ .text.INT_Excep_MTU3_TGIB3
+                0xfffc0915        0x8 ./generate/inthandler.o
+                0xfffc0915                _INT_Excep_MTU3_TGIB3
+ .text.INT_Excep_MTU3_TGIC3
+                0xfffc091d        0x8 ./generate/inthandler.o
+                0xfffc091d                _INT_Excep_MTU3_TGIC3
+ .text.INT_Excep_MTU3_TGID3
+                0xfffc0925        0x8 ./generate/inthandler.o
+                0xfffc0925                _INT_Excep_MTU3_TGID3
+ .text.INT_Excep_MTU3_TCIV3
+                0xfffc092d        0x8 ./generate/inthandler.o
+                0xfffc092d                _INT_Excep_MTU3_TCIV3
+ .text.INT_Excep_MTU4_TGIA4
+                0xfffc0935        0x8 ./generate/inthandler.o
+                0xfffc0935                _INT_Excep_MTU4_TGIA4
+ .text.INT_Excep_MTU4_TGIB4
+                0xfffc093d        0x8 ./generate/inthandler.o
+                0xfffc093d                _INT_Excep_MTU4_TGIB4
+ .text.INT_Excep_MTU4_TGIC4
+                0xfffc0945        0x8 ./generate/inthandler.o
+                0xfffc0945                _INT_Excep_MTU4_TGIC4
+ .text.INT_Excep_MTU4_TGID4
+                0xfffc094d        0x8 ./generate/inthandler.o
+                0xfffc094d                _INT_Excep_MTU4_TGID4
+ .text.INT_Excep_MTU4_TCIV4
+                0xfffc0955        0x8 ./generate/inthandler.o
+                0xfffc0955                _INT_Excep_MTU4_TCIV4
+ .text.INT_Excep_MTU5_TGIU5
+                0xfffc095d        0x8 ./generate/inthandler.o
+                0xfffc095d                _INT_Excep_MTU5_TGIU5
+ .text.INT_Excep_MTU5_TGIV5
+                0xfffc0965        0x8 ./generate/inthandler.o
+                0xfffc0965                _INT_Excep_MTU5_TGIV5
+ .text.INT_Excep_MTU5_TGIW5
+                0xfffc096d        0x8 ./generate/inthandler.o
+                0xfffc096d                _INT_Excep_MTU5_TGIW5
+ .text.INT_Excep_MTU6_TGIA6
+                0xfffc0975        0x8 ./generate/inthandler.o
+                0xfffc0975                _INT_Excep_MTU6_TGIA6
+ .text.INT_Excep_MTU6_TGIB6
+                0xfffc097d        0x8 ./generate/inthandler.o
+                0xfffc097d                _INT_Excep_MTU6_TGIB6
+ .text.INT_Excep_MTU6_TGIC6
+                0xfffc0985        0x8 ./generate/inthandler.o
+                0xfffc0985                _INT_Excep_MTU6_TGIC6
+ .text.INT_Excep_MTU6_TGID6
+                0xfffc098d        0x8 ./generate/inthandler.o
+                0xfffc098d                _INT_Excep_MTU6_TGID6
+ .text.INT_Excep_MTU6_TCIV6
+                0xfffc0995        0x8 ./generate/inthandler.o
+                0xfffc0995                _INT_Excep_MTU6_TCIV6
+ .text.INT_Excep_MTU7_TGIA7
+                0xfffc099d        0x8 ./generate/inthandler.o
+                0xfffc099d                _INT_Excep_MTU7_TGIA7
+ .text.INT_Excep_MTU7_TGIB7
+                0xfffc09a5        0x8 ./generate/inthandler.o
+                0xfffc09a5                _INT_Excep_MTU7_TGIB7
+ .text.INT_Excep_MTU7_TGIC7
+                0xfffc09ad        0x8 ./generate/inthandler.o
+                0xfffc09ad                _INT_Excep_MTU7_TGIC7
+ .text.INT_Excep_MTU7_TGID7
+                0xfffc09b5        0x8 ./generate/inthandler.o
+                0xfffc09b5                _INT_Excep_MTU7_TGID7
+ .text.INT_Excep_MTU7_TCIV7
+                0xfffc09bd        0x8 ./generate/inthandler.o
+                0xfffc09bd                _INT_Excep_MTU7_TCIV7
+ .text.INT_Excep_POE_OEI1
+                0xfffc09c5        0x8 ./generate/inthandler.o
+                0xfffc09c5                _INT_Excep_POE_OEI1
+ .text.INT_Excep_POE_OEI2
+                0xfffc09cd        0x8 ./generate/inthandler.o
+                0xfffc09cd                _INT_Excep_POE_OEI2
+ .text.INT_Excep_POE_OEI3
+                0xfffc09d5        0x8 ./generate/inthandler.o
+                0xfffc09d5                _INT_Excep_POE_OEI3
+ .text.INT_Excep_POE_OEI4
+                0xfffc09dd        0x8 ./generate/inthandler.o
+                0xfffc09dd                _INT_Excep_POE_OEI4
+ .text.INT_Excep_GPT0_GTCIA0
+                0xfffc09e5        0x8 ./generate/inthandler.o
+                0xfffc09e5                _INT_Excep_GPT0_GTCIA0
+ .text.INT_Excep_GPT0_GTCIB0
+                0xfffc09ed        0x8 ./generate/inthandler.o
+                0xfffc09ed                _INT_Excep_GPT0_GTCIB0
+ .text.INT_Excep_GPT0_GTCIC0
+                0xfffc09f5        0x8 ./generate/inthandler.o
+                0xfffc09f5                _INT_Excep_GPT0_GTCIC0
+ .text.INT_Excep_GPT0_GTCIE0
+                0xfffc09fd        0x8 ./generate/inthandler.o
+                0xfffc09fd                _INT_Excep_GPT0_GTCIE0
+ .text.INT_Excep_GPT0_GTCIV0
+                0xfffc0a05        0x8 ./generate/inthandler.o
+                0xfffc0a05                _INT_Excep_GPT0_GTCIV0
+ .text.INT_Excep_GPT0_LOCO1
+                0xfffc0a0d        0x8 ./generate/inthandler.o
+                0xfffc0a0d                _INT_Excep_GPT0_LOCO1
+ .text.INT_Excep_GPT1_GTCIA1
+                0xfffc0a15        0x8 ./generate/inthandler.o
+                0xfffc0a15                _INT_Excep_GPT1_GTCIA1
+ .text.INT_Excep_GPT1_GTCIB1
+                0xfffc0a1d        0x8 ./generate/inthandler.o
+                0xfffc0a1d                _INT_Excep_GPT1_GTCIB1
+ .text.INT_Excep_GPT1_GTCIC1
+                0xfffc0a25        0x8 ./generate/inthandler.o
+                0xfffc0a25                _INT_Excep_GPT1_GTCIC1
+ .text.INT_Excep_GPT1_GTCIE1
+                0xfffc0a2d        0x8 ./generate/inthandler.o
+                0xfffc0a2d                _INT_Excep_GPT1_GTCIE1
+ .text.INT_Excep_GPT1_GTCIV1
+                0xfffc0a35        0x8 ./generate/inthandler.o
+                0xfffc0a35                _INT_Excep_GPT1_GTCIV1
+ .text.INT_Excep_GPT2_GTCIA2
+                0xfffc0a3d        0x8 ./generate/inthandler.o
+                0xfffc0a3d                _INT_Excep_GPT2_GTCIA2
+ .text.INT_Excep_GPT2_GTCIB2
+                0xfffc0a45        0x8 ./generate/inthandler.o
+                0xfffc0a45                _INT_Excep_GPT2_GTCIB2
+ .text.INT_Excep_GPT2_GTCIC2
+                0xfffc0a4d        0x8 ./generate/inthandler.o
+                0xfffc0a4d                _INT_Excep_GPT2_GTCIC2
+ .text.INT_Excep_GPT2_GTCIE2
+                0xfffc0a55        0x8 ./generate/inthandler.o
+                0xfffc0a55                _INT_Excep_GPT2_GTCIE2
+ .text.INT_Excep_GPT2_GTCIV2
+                0xfffc0a5d        0x8 ./generate/inthandler.o
+                0xfffc0a5d                _INT_Excep_GPT2_GTCIV2
+ .text.INT_Excep_GPT3_GTCIA3
+                0xfffc0a65        0x8 ./generate/inthandler.o
+                0xfffc0a65                _INT_Excep_GPT3_GTCIA3
+ .text.INT_Excep_GPT3_GTCIB3
+                0xfffc0a6d        0x8 ./generate/inthandler.o
+                0xfffc0a6d                _INT_Excep_GPT3_GTCIB3
+ .text.INT_Excep_GPT3_GTCIC3
+                0xfffc0a75        0x8 ./generate/inthandler.o
+                0xfffc0a75                _INT_Excep_GPT3_GTCIC3
+ .text.INT_Excep_GPT3_GTCIE3
+                0xfffc0a7d        0x8 ./generate/inthandler.o
+                0xfffc0a7d                _INT_Excep_GPT3_GTCIE3
+ .text.INT_Excep_GPT3_GTCIV3
+                0xfffc0a85        0x8 ./generate/inthandler.o
+                0xfffc0a85                _INT_Excep_GPT3_GTCIV3
+ .text.INT_Excep_SCI0_ERI0
+                0xfffc0a8d        0x8 ./generate/inthandler.o
+                0xfffc0a8d                _INT_Excep_SCI0_ERI0
+ .text.INT_Excep_SCI0_RXI0
+                0xfffc0a95        0x8 ./generate/inthandler.o
+                0xfffc0a95                _INT_Excep_SCI0_RXI0
+ .text.INT_Excep_SCI0_TXI0
+                0xfffc0a9d        0x8 ./generate/inthandler.o
+                0xfffc0a9d                _INT_Excep_SCI0_TXI0
+ .text.INT_Excep_SCI0_TEI0
+                0xfffc0aa5        0x8 ./generate/inthandler.o
+                0xfffc0aa5                _INT_Excep_SCI0_TEI0
+ .text.INT_Excep_SCI1_ERI1
+                0xfffc0aad        0x8 ./generate/inthandler.o
+                0xfffc0aad                _INT_Excep_SCI1_ERI1
+ .text.INT_Excep_SCI1_RXI1
+                0xfffc0ab5        0x8 ./generate/inthandler.o
+                0xfffc0ab5                _INT_Excep_SCI1_RXI1
+ .text.INT_Excep_SCI1_TXI1
+                0xfffc0abd        0x8 ./generate/inthandler.o
+                0xfffc0abd                _INT_Excep_SCI1_TXI1
+ .text.INT_Excep_SCI1_TEI1
+                0xfffc0ac5        0x8 ./generate/inthandler.o
+                0xfffc0ac5                _INT_Excep_SCI1_TEI1
+ .text.INT_Excep_SCI2_ERI2
+                0xfffc0acd        0x8 ./generate/inthandler.o
+                0xfffc0acd                _INT_Excep_SCI2_ERI2
+ .text.INT_Excep_SCI2_RXI2
+                0xfffc0ad5        0x8 ./generate/inthandler.o
+                0xfffc0ad5                _INT_Excep_SCI2_RXI2
+ .text.INT_Excep_SCI2_TXI2
+                0xfffc0add        0x8 ./generate/inthandler.o
+                0xfffc0add                _INT_Excep_SCI2_TXI2
+ .text.INT_Excep_SCI2_TEI2
+                0xfffc0ae5        0x8 ./generate/inthandler.o
+                0xfffc0ae5                _INT_Excep_SCI2_TEI2
+ .text.INT_Excep_RIIC0_ICEEI0
+                0xfffc0aed        0x8 ./generate/inthandler.o
+                0xfffc0aed                _INT_Excep_RIIC0_ICEEI0
+ .text.INT_Excep_RIIC0_ICRXI0
+                0xfffc0af5        0x8 ./generate/inthandler.o
+                0xfffc0af5                _INT_Excep_RIIC0_ICRXI0
+ .text.INT_Excep_RIIC0_ICTXI0
+                0xfffc0afd        0x8 ./generate/inthandler.o
+                0xfffc0afd                _INT_Excep_RIIC0_ICTXI0
+ .text.INT_Excep_RIIC0_ICTEI0
+                0xfffc0b05        0x8 ./generate/inthandler.o
+                0xfffc0b05                _INT_Excep_RIIC0_ICTEI0
+ .text.INT_Excep_LIN0_LIN0
+                0xfffc0b0d        0x8 ./generate/inthandler.o
+                0xfffc0b0d                _INT_Excep_LIN0_LIN0
+ *(P)
+ P              0xfffc0b15        0x0 ./src/CANTest2.o
+ P              0xfffc0b15        0x0 ./generate/hwinit.o
+ P              0xfffc0b15        0x0 ./generate/inthandler.o
+ P              0xfffc0b15        0x0 ./generate/start.o
+ P              0xfffc0b15        0x0 ./generate/vects.o
+                0xfffc0b15                etext = .
+
+.rvectors       0xfffc0b18      0x400
+                0xfffc0b18                _rvectors_start = .
+ *(.rvectors)
+ .rvectors      0xfffc0b18      0x400 ./generate/vects.o
+                0xfffc0b18                _RelocatableVectors
+                0xfffc0f18                _rvectors_end = .
+
+.init           0xfffc0f18        0x0
+ *(.init)
+                0xfffc0f18                __preinit_array_start = .
+ *(.preinit_array)
+                0xfffc0f18                __preinit_array_end = .
+                0xfffc0f18                __init_array_start = ((. + 0x3) & 0xfffffffc)
+ *(.init_array)
+ *(SORT(.init_array.*))
+                0xfffc0f18                __init_array_end = .
+                0xfffc0f18                __fini_array_start = .
+ *(.fini_array)
+ *(SORT(.fini_array.*))
+                0xfffc0f18                __fini_array_end = .
+
+.fini
+ *(.fini)
+
+.got
+ *(.got)
+ *(.got.plt)
+
+.rodata         0xfffc0f18        0x0
+ *(.rodata)
+ *(.rodata.*)
+ *(C_1)
+ *(C_2)
+ *(C)
+                0xfffc0f18                _erodata = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.jcr
+ *(.jcr)
+
+.tors           0xfffc0f18        0x0
+                0xfffc0f18                __CTOR_LIST__ = .
+                0xfffc0f18                . = ALIGN (0x2)
+                0xfffc0f18                ___ctors = .
+ *(.ctors)
+                0xfffc0f18                ___ctors_end = .
+                0xfffc0f18                __CTOR_END__ = .
+                0xfffc0f18                __DTOR_LIST__ = .
+                0xfffc0f18                ___dtors = .
+ *(.dtors)
+                0xfffc0f18                ___dtors_end = .
+                0xfffc0f18                __DTOR_END__ = .
+                0xfffc0f18                . = ALIGN (0x2)
+                0xfffc0f18                _mdata = .
+
+.ustack         0x00000200        0x0
+                0x00000200                _ustack = .
+
+.istack         0x00000100        0x0
+                0x00000100                _istack = .
+
+.data           0x00000204        0x0 load address 0xfffc0f18
+                0x00000204                _data = .
+ *(.data)
+ *(.data.*)
+ *(D)
+ *(D_1)
+ D_1            0x00000204        0x0 ./src/CANTest2.o
+ D_1            0x00000204        0x0 ./generate/hwinit.o
+ D_1            0x00000204        0x0 ./generate/inthandler.o
+ D_1            0x00000204        0x0 ./generate/start.o
+ D_1            0x00000204        0x0 ./generate/vects.o
+ *(D_2)
+                0x00000204                _edata = .
+
+.gcc_exc
+ *(.gcc_exc)
+
+.bss            0x00000204        0x0 load address 0xfffc0f18
+                0x00000204                _bss = .
+ *(.bss)
+ *(.bss.**)
+ *(COMMON)
+ *(B)
+ *(B_1)
+ B_1            0x00000204        0x0 ./src/CANTest2.o
+ B_1            0x00000204        0x0 ./generate/hwinit.o
+ B_1            0x00000204        0x0 ./generate/inthandler.o
+ B_1            0x00000204        0x0 ./generate/start.o
+ B_1            0x00000204        0x0 ./generate/vects.o
+ *(B_2)
+                0x00000204                _ebss = .
+                0x00000204                _end = .
+OUTPUT(CANTest2.elf elf32-rx-be)
+
+.debug_frame    0x00000000     0x1028
+ .debug_frame   0x00000000      0x140 ./src/CANTest2.o
+ .debug_frame   0x00000140       0x34 ./generate/hwinit.o
+ .debug_frame   0x00000174      0xeb4 ./generate/inthandler.o
+
+.debug_info     0x00000000     0x2ca3
+ .debug_info    0x00000000     0x2349 ./src/CANTest2.o
+ .debug_info    0x00002349       0x5a ./generate/hwinit.o
+ .debug_info    0x000023a3      0x810 ./generate/inthandler.o
+ .debug_info    0x00002bb3       0x6c ./generate/start.o
+ .debug_info    0x00002c1f       0x84 ./generate/vects.o
+
+.debug_abbrev   0x00000000      0x2da
+ .debug_abbrev  0x00000000      0x1e4 ./src/CANTest2.o
+ .debug_abbrev  0x000001e4       0x37 ./generate/hwinit.o
+ .debug_abbrev  0x0000021b       0x44 ./generate/inthandler.o
+ .debug_abbrev  0x0000025f       0x14 ./generate/start.o
+ .debug_abbrev  0x00000273       0x67 ./generate/vects.o
+
+.debug_aranges  0x00000000      0x468
+ .debug_aranges
+                0x00000000       0x50 ./src/CANTest2.o
+ .debug_aranges
+                0x00000050       0x20 ./generate/hwinit.o
+ .debug_aranges
+                0x00000070      0x3c0 ./generate/inthandler.o
+ .debug_aranges
+                0x00000430       0x20 ./generate/start.o
+ .debug_aranges
+                0x00000450       0x18 ./generate/vects.o
+
+.debug_ranges   0x00000000      0x400
+ .debug_ranges  0x00000000       0x40 ./src/CANTest2.o
+ .debug_ranges  0x00000040       0x10 ./generate/hwinit.o
+ .debug_ranges  0x00000050      0x3b0 ./generate/inthandler.o
+
+.debug_line     0x00000000      0xb22
+ .debug_line    0x00000000      0x24e ./src/CANTest2.o
+ .debug_line    0x0000024e       0x47 ./generate/hwinit.o
+ .debug_line    0x00000295      0x7ef ./generate/inthandler.o
+ .debug_line    0x00000a84       0x6a ./generate/start.o
+ .debug_line    0x00000aee       0x34 ./generate/vects.o
+
+.debug_str      0x00000000     0x10e2
+ .debug_str     0x00000000      0x6e3 ./src/CANTest2.o
+                                0x703 (size before relaxing)
+ .debug_str     0x000006e3       0x23 ./generate/hwinit.o
+                                0x102 (size before relaxing)
+ .debug_str     0x00000706      0x9a5 ./generate/inthandler.o
+                                0xa43 (size before relaxing)
+ .debug_str     0x000010ab       0x37 ./generate/vects.o
+                                 0xde (size before relaxing)
+
+.comment        0x00000000       0x2d
+ .comment       0x00000000       0x2d ./src/CANTest2.o
+                                 0x2e (size before relaxing)
+ .comment       0x00000000       0x2e ./generate/hwinit.o
+ .comment       0x00000000       0x2e ./generate/inthandler.o
+ .comment       0x00000000       0x2e ./generate/vects.o
